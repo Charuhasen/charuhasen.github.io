@@ -94,14 +94,33 @@ function initCounters() {
         const target = parseInt(counter.getAttribute('data-target'));
         const increment = target / speed;
         let current = 0;
+        
+        // Check if this counter needs special formatting
+        const label = counter.parentElement.querySelector('.stat-label');
+        const labelText = label ? label.textContent.toLowerCase() : '';
+        const needsPercent = labelText.includes('satisfaction');
+        const needsPlus = labelText.includes('team members') || labelText.includes('experience');
 
         const updateCounter = () => {
             current += increment;
             if (current < target) {
-                counter.innerText = Math.ceil(current);
+                const displayValue = Math.ceil(current);
+                if (needsPercent) {
+                    counter.innerText = displayValue + '%';
+                } else if (needsPlus) {
+                    counter.innerText = displayValue + '+';
+                } else {
+                    counter.innerText = displayValue;
+                }
                 requestAnimationFrame(updateCounter);
             } else {
-                counter.innerText = target;
+                if (needsPercent) {
+                    counter.innerText = target + '%';
+                } else if (needsPlus) {
+                    counter.innerText = target + '+';
+                } else {
+                    counter.innerText = target;
+                }
             }
         };
 
