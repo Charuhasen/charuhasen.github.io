@@ -660,3 +660,48 @@ const additionalStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
+
+// Sector dropdown toggle function
+function toggleSector(sectorId) {
+    const sectorCard = document.querySelector(`[data-sector="${sectorId}"]`);
+    if (!sectorCard) return;
+    
+    const sectorHeader = sectorCard.querySelector('.sector-header');
+    
+    // Close all other sectors
+    const allSectors = document.querySelectorAll('.sector-card');
+    allSectors.forEach(card => {
+        if (card !== sectorCard && card.classList.contains('active')) {
+            card.classList.remove('active');
+            const otherHeader = card.querySelector('.sector-header');
+            if (otherHeader) {
+                otherHeader.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+    
+    // Toggle current sector
+    const isOpen = sectorCard.classList.contains('active');
+    sectorCard.classList.toggle('active');
+    
+    // Update aria-expanded attribute
+    if (sectorHeader) {
+        sectorHeader.setAttribute('aria-expanded', !isOpen);
+    }
+    
+    // Announce to screen readers
+    const sectorTitle = sectorCard.querySelector('h3').textContent;
+    if (window.announce) {
+        window.announce(`${sectorTitle} section ${!isOpen ? 'expanded' : 'collapsed'}`);
+    }
+    
+    // Smooth scroll to keep the opened section in view
+    if (!isOpen && window.innerWidth <= 768) {
+        setTimeout(() => {
+            sectorCard.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }, 300);
+    }
+}

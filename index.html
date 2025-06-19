@@ -138,7 +138,7 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Our Comprehensive Solutions</h2>
+                <h2>Our Services</h2>
                 <p>Cutting-edge cleaning and safety services designed for modern Ghana</p>
             </div>
             <div class="services-grid">
@@ -219,81 +219,111 @@
                 <p>Specialized solutions tailored to your sector's unique challenges</p>
             </div>
             <div class="sectors-grid">
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-building"></i>
+                <div class="sector-card" data-sector="corporate">
+                    <div class="sector-header" onclick="toggleSector('corporate')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('corporate')" role="button" aria-expanded="false" aria-controls="corporate-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>Corporate & Finance</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
                     </div>
-                    <h3>Corporate & Finance</h3>
-                    <p>Elevate your company image with pristine office environments that impress clients and boost employee productivity.</p>
-                    <div class="sector-features">
-                        <span>Executive suites</span>
-                        <span>Trading floors</span>
-                        <span>Client meeting areas</span>
-                    </div>
-                </div>
-                
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3>Healthcare & Medical</h3>
-                    <p>Critical infection control and specialized cleaning protocols that meet the highest medical facility standards.</p>
-                    <div class="sector-features">
-                        <span>Hospitals</span>
-                        <span>Clinics</span>
-                        <span>Laboratories</span>
+                    <div class="sector-content" id="corporate-content">
+                        <p>Elevate your company image with pristine office environments that impress clients and boost employee productivity.</p>
+                        <div class="sector-features">
+                            <span>Executive suites</span>
+                            <span>Trading floors</span>
+                            <span>Client meeting areas</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-shopping-bag"></i>
+                <div class="sector-card" data-sector="healthcare">
+                    <div class="sector-header" onclick="toggleSector('healthcare')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('healthcare')" role="button" aria-expanded="false" aria-controls="healthcare-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Healthcare & Medical</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
                     </div>
-                    <h3>Retail & Hospitality</h3>
-                    <p>Create immaculate environments that attract customers and enhance their shopping and dining experiences.</p>
-                    <div class="sector-features">
-                        <span>Shopping centers</span>
-                        <span>Restaurants</span>
-                        <span>Hotels</span>
-                    </div>
-                </div>
-                
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Education</h3>
-                    <p>Safe, healthy learning environments that support student success and staff wellbeing in educational institutions.</p>
-                    <div class="sector-features">
-                        <span>Universities</span>
-                        <span>Schools</span>
-                        <span>Training centers</span>
+                    <div class="sector-content" id="healthcare-content">
+                        <p>Critical infection control and specialized cleaning protocols that meet the highest medical facility standards.</p>
+                        <div class="sector-features">
+                            <span>Hospitals</span>
+                            <span>Clinics</span>
+                            <span>Laboratories</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-industry"></i>
+                <div class="sector-card" data-sector="retail">
+                    <div class="sector-header" onclick="toggleSector('retail')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('retail')" role="button" aria-expanded="false" aria-controls="retail-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>Retail & Hospitality</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
                     </div>
-                    <h3>Industrial & Manufacturing</h3>
-                    <p>Specialized cleaning for complex industrial environments with strict safety and regulatory requirements.</p>
-                    <div class="sector-features">
-                        <span>Factories</span>
-                        <span>Warehouses</span>
-                        <span>Processing plants</span>
+                    <div class="sector-content" id="retail-content">
+                        <p>Create immaculate environments that attract customers and enhance their shopping and dining experiences.</p>
+                        <div class="sector-features">
+                            <span>Shopping centers</span>
+                            <span>Restaurants</span>
+                            <span>Hotels</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="sector-card">
-                    <div class="sector-icon">
-                        <i class="fas fa-home"></i>
+                <div class="sector-card" data-sector="education">
+                    <div class="sector-header" onclick="toggleSector('education')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('education')" role="button" aria-expanded="false" aria-controls="education-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Education</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
                     </div>
-                    <h3>Residential</h3>
-                    <p>Premium home cleaning services that give families more time to focus on what matters most to them.</p>
-                    <div class="sector-features">
-                        <span>Luxury homes</span>
-                        <span>Apartments</span>
-                        <span>Estate management</span>
+                    <div class="sector-content" id="education-content">
+                        <p>Safe, healthy learning environments that support student success and staff wellbeing in educational institutions.</p>
+                        <div class="sector-features">
+                            <span>Universities</span>
+                            <span>Schools</span>
+                            <span>Training centers</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sector-card" data-sector="industrial">
+                    <div class="sector-header" onclick="toggleSector('industrial')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('industrial')" role="button" aria-expanded="false" aria-controls="industrial-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3>Industrial & Manufacturing</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
+                    </div>
+                    <div class="sector-content" id="industrial-content">
+                        <p>Specialized cleaning for complex industrial environments with strict safety and regulatory requirements.</p>
+                        <div class="sector-features">
+                            <span>Factories</span>
+                            <span>Warehouses</span>
+                            <span>Processing plants</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sector-card" data-sector="residential">
+                    <div class="sector-header" onclick="toggleSector('residential')" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') toggleSector('residential')" role="button" aria-expanded="false" aria-controls="residential-content">
+                        <div class="sector-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Residential</h3>
+                        <i class="fas fa-chevron-down sector-toggle"></i>
+                    </div>
+                    <div class="sector-content" id="residential-content">
+                        <p>Premium home cleaning services that give families more time to focus on what matters most to them.</p>
+                        <div class="sector-features">
+                            <span>Luxury homes</span>
+                            <span>Apartments</span>
+                            <span>Estate management</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -304,7 +334,7 @@
     <section id="team" class="team">
         <div class="container">
             <div class="section-header">
-                <h2>Meet Our Excellence Team</h2>
+                <h2>Meet Our Team</h2>
                 <p>The dedicated professionals who make Gasfalan Ghana's most trusted cleaning partner</p>
             </div>
             
@@ -570,6 +600,106 @@
                         <div class="author-info">
                             <strong>Kofi Mensah</strong>
                             <span>Operations Director</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial-card">
+                    <div class="stars" aria-label="5 stars">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                    </div>
+                    <blockquote>"Outstanding service! Their team cleaned our manufacturing facility with precision and followed all safety protocols. The equipment tracking system helps us monitor progress in real-time."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://placehold.co/60x60/e67e22/FFFFFF?text=EQ" alt="Emmanuel Quaye">
+                        </div>
+                        <div class="author-info">
+                            <strong>Emmanuel Quaye</strong>
+                            <span>Plant Manager</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial-card">
+                    <div class="stars" aria-label="5 stars">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                    </div>
+                    <blockquote>"Perfect for our restaurant chain! They understand the food service industry and maintain the highest hygiene standards. Our customer satisfaction scores have improved significantly."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://placehold.co/60x60/9b59b6/FFFFFF?text=AA" alt="Akosua Adjei">
+                        </div>
+                        <div class="author-info">
+                            <strong>Akosua Adjei</strong>
+                            <span>Restaurant Group Owner</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial-card">
+                    <div class="stars" aria-label="5 stars">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                    </div>
+                    <blockquote>"The university chose Gasfalan for all our campus facilities. Their training programs have elevated our internal cleaning standards and student satisfaction has never been higher."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://placehold.co/60x60/34495e/FFFFFF?text=JN" alt="John Nkrumah">
+                        </div>
+                        <div class="author-info">
+                            <strong>Prof. John Nkrumah</strong>
+                            <span>University Administrator</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial-card">
+                    <div class="stars" aria-label="5 stars">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                    </div>
+                    <blockquote>"As a luxury home owner, I demand perfection. Gasfalan delivers every time with attention to detail that's unmatched. They treat our home with the same care we do."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://placehold.co/60x60/e74c3c/FFFFFF?text=MA" alt="Mrs. Adjoa">
+                        </div>
+                        <div class="author-info">
+                            <strong>Mrs. Adjoa Mensah</strong>
+                            <span>Homeowner</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="testimonial-card">
+                    <div class="stars" aria-label="5 stars">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                    </div>
+                    <blockquote>"Exceptional pest control services! They eliminated our warehouse pest issues completely and their monitoring system prevents future infestations. Highly professional team."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://placehold.co/60x60/f39c12/FFFFFF?text=ST" alt="Samuel Tetteh">
+                        </div>
+                        <div class="author-info">
+                            <strong>Samuel Tetteh</strong>
+                            <span>Warehouse Manager</span>
                         </div>
                     </div>
                 </article>
