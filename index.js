@@ -239,6 +239,13 @@ function initFormHandling() {
             input.addEventListener('input', function() {
                 clearFieldError(this);
             });
+            
+            // Handle select change events
+            if (input.tagName.toLowerCase() === 'select') {
+                input.addEventListener('change', function() {
+                    clearFieldError(this);
+                });
+            }
         });
     }
 }
