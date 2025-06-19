@@ -6,23 +6,15 @@
     <title>Gasfalan Ghana - Professional Cleaning Services</title>
     <meta name="description" content="Professional cleaning services in Ghana. Residential, office, and deep cleaning across Accra, Kumasi, and more.">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" as="style">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
-    
     <!-- Load CSS -->
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- DNS prefetch for external resources -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
+    <header>
+        <nav class="navbar" id="navbar">
             <div class="nav-logo">
                 <i class="fas fa-sparkles" aria-hidden="true"></i>
                 <span>Gasfalan Services Ltd.</span>
@@ -40,86 +32,107 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <span>🌟 Ghana's Most Trusted Cleaning Partner</span>
-                    </div>
-                    <h1>We believe there's a <span class="highlight">better way</span> to deliver cleaning services</h1>
-                    <p class="hero-subtitle">A more innovative, technology-driven, and people-focused approach that places clients at the core of our solutions. We don't just clean - we create healthier, happier environments.</p>
-                    <div class="hero-features">
-                        <div class="hero-feature">
-                            <i class="fas fa-shield-check"></i>
-                            <span>100% Insured & Bonded</span>
-                        </div>
-                        <div class="hero-feature">
-                            <i class="fas fa-leaf"></i>
-                            <span>Eco-Friendly Solutions</span>
-                        </div>
-                        <div class="hero-feature">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Smart Technology</span>
-                        </div>
-                    </div>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary" id="hero-cta">
-                            <span>Get Free Quote</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <button class="btn btn-secondary" id="hero-services">
-                            <i class="fas fa-play"></i>
-                            <span>View Services</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-image-wrapper">
-                        <img src="/assets/image7.webp" alt="Gasfalan team providing professional cleaning services" class="main-hero-img">
-                        <div class="floating-card card-1">
-                            <i class="fas fa-star"></i>
-                            <div>
-                                <strong>500+</strong>
-                                <span>Happy Clients</span>
-                            </div>
-                        </div>
-                        <div class="floating-card card-2">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <strong>99.8%</strong>
-                                <span>Satisfaction Rate</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Modern Hero Section -->
+    <main id="main-content">
+        <section id="home" class="hero">
+            <div class="hero-background">
+                <div class="hero-pattern"></div>
+                <div class="hero-glow"></div>
             </div>
             
-            <!-- Hero Stats -->
-            <div class="hero-stats" id="hero-stats">
-                <div class="stat">
-                    <span class="stat-number" data-target="500">0</span>
-                    <span class="stat-label">Happy Clients</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="1000">0</span>
-                    <span class="stat-label">Spaces Cleaned</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="5">0</span>
-                    <span class="stat-label">Years Experience</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="24">0</span>
-                    <span class="stat-label">Hour Support</span>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">
+                            <i class="fas fa-sparkles"></i>
+                            <span>Professional Cleaning Services in Ghana</span>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            Spotless Spaces,<br>
+                            <span class="gradient-text">Guaranteed Results</span>
+                        </h1>
+                        
+                        <p class="hero-description">
+                            Transform your space with our professional cleaning services. We deliver exceptional results using eco-friendly products and advanced techniques for homes and businesses across Ghana.
+                        </p>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="500">0</div>
+                                <div class="stat-label">Happy Clients</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="100">0</div>
+                                <div class="stat-label">Satisfaction</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" data-target="8">0</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" id="hero-cta">
+                                <i class="fas fa-phone"></i>
+                                Get Free Quote
+                            </button>
+                            <button class="btn btn-outline" id="hero-services">
+                                <i class="fas fa-play"></i>
+                                Watch Our Work
+                            </button>
+                        </div>
+                        
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Fully Insured</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-leaf"></i>
+                                <span>Eco-Friendly</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7 Support</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="hero-image-container">
+                            <img src="/assets/image7.webp" alt="Professional cleaning services" class="hero-main-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        
+                        <div class="cleaning-icons">
+                            <div class="cleaning-icon icon-1">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div class="cleaning-icon icon-2">
+                                <i class="fas fa-spray-can"></i>
+                            </div>
+                            <div class="cleaning-icon icon-3">
+                                <i class="fas fa-sparkles"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="quality-badge">
+                            <div class="badge-content">
+                                <i class="fas fa-certificate"></i>
+                                <div>
+                                    <div class="badge-title">Quality</div>
+                                    <div class="badge-subtitle">Guaranteed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Services Section -->
     <section id="services" class="services">
@@ -489,10 +502,7 @@
                 </div>
                 <div class="about-images">
                     <div class="about-image-main">
-                        <img src="https://placehold.co/400x500/4CAF50/FFFFFF?text=Modern+Office+Cleaning" alt="Professional cleaning in modern office environment">
-                    </div>
-                    <div class="about-image-small">
-                        <img src="https://placehold.co/200x250/2c5530/FFFFFF?text=Safety+Training" alt="Safety training session">
+                        <img src="assets/image8.webp" alt="Professional cleaning in modern office environment">
                     </div>
                     <div class="credentials-display">
                         <h4>Our Certifications</h4>
@@ -525,9 +535,6 @@
             </div>
             <div class="testimonials-grid">
                 <article class="testimonial-card featured">
-                    <div class="client-logo">
-                        <img src="https://placehold.co/120x60/f8f9fa/333333?text=COMPANY+LOGO" alt="Client Company Logo">
-                    </div>
                     <div class="stars" aria-label="5 stars">
                         <i class="fas fa-star" aria-hidden="true"></i>
                         <i class="fas fa-star" aria-hidden="true"></i>
@@ -542,16 +549,12 @@
                         </div>
                         <div class="author-info">
                             <strong>Kwame Asante</strong>
-                            <span>Facilities Manager, Tech Hub Accra</span>
-                            <span class="company">150+ employees</span>
+                            <span>Facilities Manager</span>
                         </div>
                     </div>
                 </article>
                 
                 <article class="testimonial-card">
-                    <div class="client-logo">
-                        <img src="https://placehold.co/120x60/f8f9fa/333333?text=MEDICAL+CENTER" alt="Medical Center Logo">
-                    </div>
                     <div class="stars" aria-label="5 stars">
                         <i class="fas fa-star" aria-hidden="true"></i>
                         <i class="fas fa-star" aria-hidden="true"></i>
@@ -566,16 +569,12 @@
                         </div>
                         <div class="author-info">
                             <strong>Dr. Ama Osei</strong>
-                            <span>Chief Medical Officer, Ridge Hospital</span>
-                            <span class="company">Healthcare Facility</span>
+                            <span>Chief Medical Officer</span>
                         </div>
                     </div>
                 </article>
                 
                 <article class="testimonial-card">
-                    <div class="client-logo">
-                        <img src="https://placehold.co/120x60/f8f9fa/333333?text=RETAIL+GROUP" alt="Retail Group Logo">
-                    </div>
                     <div class="stars" aria-label="5 stars">
                         <i class="fas fa-star" aria-hidden="true"></i>
                         <i class="fas fa-star" aria-hidden="true"></i>
@@ -590,23 +589,10 @@
                         </div>
                         <div class="author-info">
                             <strong>Kofi Mensah</strong>
-                            <span>Operations Director, ShopRite Ghana</span>
-                            <span class="company">25+ Locations</span>
+                            <span>Operations Director</span>
                         </div>
                     </div>
                 </article>
-            </div>
-            
-            <div class="client-logos-section">
-                <h3>Trusted by Leading Organizations</h3>
-                <div class="client-logos">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+1" alt="Client Logo 1">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+2" alt="Client Logo 2">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+3" alt="Client Logo 3">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+4" alt="Client Logo 4">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+5" alt="Client Logo 5">
-                    <img src="https://placehold.co/150x80/f8f9fa/666666?text=CLIENT+6" alt="Client Logo 6">
-                </div>
             </div>
         </div>
     </section>
@@ -811,6 +797,7 @@
             </div>
         </div>
     </footer>
+    </main>
 
     <!-- Load JavaScript at the end for better performance -->
     <script src="index.js" defer></script>

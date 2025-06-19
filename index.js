@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Navbar functionality
 function initNavbar() {
-    const navbar = document.getElementById('navbar');
+    const header = document.querySelector('header');
     let scrolled = false;
     let lastScrollTop = 0;
 
@@ -35,10 +35,10 @@ function initNavbar() {
         lastScrollTop = scrollTop;
         
         if (scrollTop > 50 && !scrolled) {
-            navbar.classList.add('scrolled');
+            header.classList.add('scrolled');
             scrolled = true;
         } else if (scrollTop <= 50 && scrolled) {
-            navbar.classList.remove('scrolled');
+            header.classList.remove('scrolled');
             scrolled = false;
         }
     }
@@ -91,7 +91,8 @@ function initCounters() {
     const speed = 60; // Reduced iterations for better performance
 
     const animateCounter = (counter) => {
-        const target = parseInt(counter.getAttribute('data-target'));
+        const targetValue = counter.getAttribute('data-target');
+        const target = parseFloat(targetValue);
         const increment = target / speed;
         let current = 0;
         
@@ -99,12 +100,19 @@ function initCounters() {
         const label = counter.parentElement.querySelector('.stat-label');
         const labelText = label ? label.textContent.toLowerCase() : '';
         const needsPercent = labelText.includes('satisfaction');
-        const needsPlus = labelText.includes('team members') || labelText.includes('experience');
+        const needsPlus = labelText.includes('clients') || labelText.includes('experience');
+        const isDecimal = targetValue.includes('.');
 
         const updateCounter = () => {
             current += increment;
             if (current < target) {
-                const displayValue = Math.ceil(current);
+                let displayValue;
+                if (isDecimal) {
+                    displayValue = Math.min(current, target).toFixed(1);
+                } else {
+                    displayValue = Math.ceil(current);
+                }
+                
                 if (needsPercent) {
                     counter.innerText = displayValue + '%';
                 } else if (needsPlus) {
@@ -114,12 +122,17 @@ function initCounters() {
                 }
                 requestAnimationFrame(updateCounter);
             } else {
+                let finalValue = target;
+                if (isDecimal) {
+                    finalValue = target.toFixed(1);
+                }
+                
                 if (needsPercent) {
-                    counter.innerText = target + '%';
+                    counter.innerText = finalValue + '%';
                 } else if (needsPlus) {
-                    counter.innerText = target + '+';
+                    counter.innerText = finalValue + '+';
                 } else {
-                    counter.innerText = target;
+                    counter.innerText = finalValue;
                 }
             }
         };
@@ -145,23 +158,33 @@ function initCounters() {
     });
 }
 
-// Intersection Observer for animations
+// Optimized Intersection Observer for animations
 function initIntersectionObserver() {
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.05, // Reduced threshold for better performance
+        rootMargin: '0px 0px -50px 0px' // Reduced margin
     };
 
     const observer = new IntersectionObserver((entries) => {
+        // Batch DOM updates
+        const toAnimate = [];
+        
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('fade-in-up')) {
-                entry.target.classList.add('fade-in-up');
-                observer.unobserve(entry.target); // Stop observing after animation
+                toAnimate.push(entry.target);
+                observer.unobserve(entry.target);
             }
         });
+        
+        // Apply animations in a single rAF
+        if (toAnimate.length > 0) {
+            requestAnimationFrame(() => {
+                toAnimate.forEach(el => el.classList.add('fade-in-up'));
+            });
+        }
     }, observerOptions);
 
-    // Observe elements that should animate - use more specific selectors for better performance
+    // Observe elements that should animate
     const animateElements = document.querySelectorAll(
         '.service-card, .sector-card, .team-member, .testimonial-card, .section-header, .about-text, .contact-info'
     );
@@ -171,7 +194,7 @@ function initIntersectionObserver() {
     });
 }
 
-// Smooth scrolling for navigation links
+// Optimized smooth scrolling for navigation links
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -180,9 +203,11 @@ function initSmoothScrolling() {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const header = document.querySelector('header');
+                const navHeight = header ? header.offsetHeight : 70;
                 const targetPosition = targetElement.offsetTop - navHeight;
                 
+                // Use native smooth scroll for better performance
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -371,7 +396,7 @@ function initButtonHandlers() {
         heroCTA.addEventListener('click', function() {
             const contactSection = document.getElementById('contact');
             if (contactSection) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const navHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = contactSection.offsetTop - navHeight;
                 
                 window.scrollTo({
@@ -388,7 +413,7 @@ function initButtonHandlers() {
         heroServices.addEventListener('click', function() {
             const servicesSection = document.getElementById('services');
             if (servicesSection) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const navHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = servicesSection.offsetTop - navHeight;
                 
                 window.scrollTo({
@@ -419,7 +444,7 @@ function initButtonHandlers() {
             // Scroll to contact form
             const contactSection = document.getElementById('contact');
             if (contactSection) {
-                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const navHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = contactSection.offsetTop - navHeight;
                 
                 window.scrollTo({
@@ -431,174 +456,137 @@ function initButtonHandlers() {
     });
 }
 
-// Parallax scrolling effect
+// Optimized parallax scrolling effect
 function initParallax() {
     const hero = document.querySelector('.hero');
     const heroContent = document.querySelector('.hero-content');
-    const heroStats = document.querySelector('.hero-stats');
+    const heroImage = document.querySelector('.hero-image');
     const services = document.querySelector('.services');
+    const floatingCards = document.querySelectorAll('.floating-card');
     
-    if (!hero || !heroContent || !services) return;
-    
-    // Check if user prefers reduced motion, is on mobile, or has low-end device
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
-    
-    if (prefersReducedMotion || isMobile || isLowEndDevice) {
-        return; // Skip parallax initialization
+    if (!hero || !heroContent || !services) {
+        console.log('Parallax: Missing required elements');
+        return;
     }
     
-    let ticking = false;
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        console.log('Parallax: Reduced motion preference detected, skipping');
+        return;
+    }
+    
+    let isMobile = window.innerWidth <= 768;
+    let isParallaxActive = true;
     let heroHeight = hero.offsetHeight;
     let windowHeight = window.innerHeight;
     
-    // Cache DOM measurements
+    // Cached values for performance
     let lastScrollTop = 0;
-    let lastHeroRect = hero.getBoundingClientRect();
-    let lastServicesRect = services.getBoundingClientRect();
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
     
-    function updateParallax() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Skip if scroll hasn't changed significantly
-        const scrollDelta = Math.abs(scrollTop - lastScrollTop);
-        if (scrollDelta < 2) {
-            ticking = false;
+    // Optimized update function with reduced calculations
+    function updateParallax(scrollTop) {
+        // Skip if minimal scroll change
+        const scrollDiff = Math.abs(scrollTop - lastScrollTop);
+        if (scrollDiff < 3) {
             return;
         }
         lastScrollTop = scrollTop;
         
-        // Optimize: Only calculate rect when needed
-        const heroBottom = heroHeight - scrollTop;
-        
-        // Only apply parallax when hero section is visible
-        if (heroBottom >= -200 && scrollTop < heroHeight * 1.2) {
-            const scrollPercent = scrollTop / (heroHeight * 1.2);
-            const parallaxSpeed = 0.3;
-            const fadeSpeed = 0.4;
-            
-            // Use transform3d for hardware acceleration
-            const translateY = Math.round(scrollTop * parallaxSpeed);
-            heroContent.style.transform = `translate3d(0, ${translateY}px, 0)`;
-            
-            // Smoother opacity transitions to prevent glitching
-            const fadeStartPoint = 0.6;
-            const adjustedScrollPercent = Math.max(0, (scrollPercent - fadeStartPoint) / (1 - fadeStartPoint));
-            const opacity = Math.max(0.3, 1 - (adjustedScrollPercent * fadeSpeed));
-            
-            // Use CSS custom property for smoother transitions
-            if (Math.abs(parseFloat(heroContent.style.opacity || 1) - opacity) > 0.05) {
-                heroContent.style.opacity = opacity.toFixed(2);
+        // Early exit if scrolled past parallax zone
+        if (scrollTop > heroHeight * 1.2) {
+            if (isParallaxActive) {
+                // Reset transforms once when leaving parallax zone
+                heroContent.style.transform = '';
+                heroContent.style.opacity = '';
+                if (heroImage) heroImage.style.transform = '';
+                floatingCards.forEach(card => card.style.transform = '');
+                isParallaxActive = false;
             }
-            
-            // Move hero stats with different speed
-            if (heroStats) {
-                const statsTranslateY = Math.round(scrollTop * (parallaxSpeed * 0.5));
-                heroStats.style.transform = `translate3d(0, ${statsTranslateY}px, 0)`;
-                
-                const statsFadeStartPoint = 0.8;
-                const statsAdjustedScrollPercent = Math.max(0, (scrollPercent - statsFadeStartPoint) / (1 - statsFadeStartPoint));
-                const statsOpacity = Math.max(0.4, 1 - (statsAdjustedScrollPercent * fadeSpeed));
-                
-                // Smoother opacity changes for stats
-                if (Math.abs(parseFloat(heroStats.style.opacity || 1) - statsOpacity) > 0.05) {
-                    heroStats.style.opacity = statsOpacity.toFixed(2);
-                }
-            }
-            
-            // Optimize services animation - only when close to viewport
-            if (scrollTop > heroHeight * 0.7) {
-                const servicesTop = (heroHeight * 1.2) - scrollTop;
-                if (servicesTop < windowHeight && servicesTop > -100) {
-                    const scalePercent = Math.max(0, Math.min(1, 1 - (servicesTop / windowHeight)));
-                    const scale = 0.98 + (scalePercent * 0.02); // Subtler scale effect
-                    const opacity = Math.min(1, scalePercent + 0.5); // Smoother fade in
-                    
-                    // Only update if there's a significant change
-                    const currentScale = parseFloat(services.style.transform.match(/scale\(([^)]+)\)/)?.[1] || 1);
-                    const currentOpacity = parseFloat(services.style.opacity || 1);
-                    
-                    if (Math.abs(currentScale - scale) > 0.001 || Math.abs(currentOpacity - opacity) > 0.02) {
-                        services.style.transform = `translate3d(0, 0, 0) scale(${scale.toFixed(3)})`;
-                        services.style.opacity = opacity.toFixed(2);
-                    }
-                }
-            }
-        } else if (scrollTop >= heroHeight * 1.2) {
-            // Reset transforms when past extended hero section
-            heroContent.style.transform = '';
-            heroContent.style.opacity = '';
-            if (heroStats) {
-                heroStats.style.transform = '';
-                heroStats.style.opacity = '';
-            }
-            services.style.transform = '';
-            services.style.opacity = '';
+            return;
         }
         
-        ticking = false;
+        if (!isParallaxActive) {
+            isParallaxActive = true;
+        }
+        
+        // Single calculation for scroll progress
+        const heroScrollProgress = Math.min(1, scrollTop / heroHeight);
+        
+        // Batch DOM updates using transform matrix for better performance
+        const parallaxSpeed = isMobile ? 0.5 : 0.4; // Reduced speeds for smoother performance
+        const contentTranslateY = scrollTop * parallaxSpeed;
+        
+        // Use requestAnimationFrame for DOM updates
+        requestAnimationFrame(() => {
+            // Hero content parallax
+            heroContent.style.transform = `translate3d(0, ${contentTranslateY}px, 0)`;
+            
+            // Hero image parallax (reduced complexity)
+            if (heroImage) {
+                const imageSpeed = parallaxSpeed * 0.6;
+                const imageTranslateY = scrollTop * imageSpeed;
+                heroImage.style.transform = `translate3d(0, ${imageTranslateY}px, 0)`;
+            }
+            
+            // Simplified floating cards parallax
+            floatingCards.forEach((card, index) => {
+                const cardSpeed = parallaxSpeed * 0.3;
+                const cardDirection = index % 2 === 0 ? 1 : -1;
+                const cardTranslateY = scrollTop * cardSpeed * cardDirection;
+                card.style.transform = `translate3d(0, ${cardTranslateY}px, 0)`;
+            });
+            
+            // Simplified opacity fade
+            if (heroScrollProgress > 0.3) {
+                const fadeProgress = (heroScrollProgress - 0.3) / 0.5;
+                const opacity = Math.max(0.1, 1 - fadeProgress);
+                heroContent.style.opacity = opacity;
+            }
+            
+            // Background parallax with CSS custom property (most performant)
+            const bgTranslateY = scrollTop * 0.3;
+            hero.style.setProperty('--bg-parallax', `${bgTranslateY}px`);
+        });
     }
     
-    // Throttled scroll event for performance
+    // High-performance scroll handler with throttling
     function onScroll() {
+        lastKnownScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
         if (!ticking) {
-            requestAnimationFrame(updateParallax);
             ticking = true;
+            requestAnimationFrame(() => {
+                updateParallax(lastKnownScrollPosition);
+                ticking = false;
+            });
         }
     }
     
-    // Update cached measurements on resize
+    // Debounced resize handler
     function onResize() {
         heroHeight = hero.offsetHeight;
         windowHeight = window.innerHeight;
-        lastHeroRect = hero.getBoundingClientRect();
-        lastServicesRect = services.getBoundingClientRect();
+        const newIsMobile = window.innerWidth <= 768;
+        
+        if (newIsMobile !== isMobile) {
+            isMobile = newIsMobile;
+            // Reset parallax state on mobile change
+            isParallaxActive = true;
+            updateParallax(lastKnownScrollPosition);
+        }
     }
     
+    // Event listeners with optimized options
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', utils.debounce(onResize, 250));
+    window.addEventListener('resize', utils.debounce(onResize, 150));
     
-    // Initial call
-    updateParallax();
+    // Initial setup
+    updateParallax(0);
 }
 
-// Performance optimization
-function optimizePerformance() {
-    // Lazy loading for images
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
-                        observer.unobserve(img);
-                    }
-                }
-            });
-        });
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
-
-    // Preload critical resources
-    const preloadLinks = [
-        'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap',
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-    ];
-
-    preloadLinks.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'style';
-        link.href = href;
-        document.head.appendChild(link);
-    });
-}
 
 // Error handling
 window.addEventListener('error', function(e) {
@@ -648,7 +636,6 @@ function initAccessibility() {
 // Initialize accessibility features
 document.addEventListener('DOMContentLoaded', function() {
     initAccessibility();
-    optimizePerformance();
 });
 
 // Utility functions
