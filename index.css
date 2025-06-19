@@ -31,7 +31,7 @@
 }
 
 html {
-    scroll-behavior: auto; /* Disable smooth scroll to prevent conflicts with parallax */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -79,7 +79,7 @@ body.loaded .contact-info {
 }
 
 
-/* Optimized hardware acceleration for animated elements */
+/* Hardware acceleration for animated elements */
 .service-card,
 .sector-card,
 .team-member,
@@ -102,12 +102,6 @@ body.loaded .contact-info {
     transform: translate3d(0, 0, 0);
 }
 
-/* Optimize heavy effects */
-.floating-card {
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    contain: layout style paint;
-}
 
 /* Reduce backdrop-filter complexity */
 @supports not (backdrop-filter: blur(10px)) {
@@ -428,17 +422,14 @@ header.scrolled {
     transform: translateY(-2px);
 }
 
-/* Hero Image Section - Enhanced for parallax */
+/* Hero Image Section */
 .hero-image {
     position: relative;
     z-index: 10;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
     contain: layout style paint;
     max-width: 500px;
     margin: 0 auto;
-    padding: 60px 40px; /* Add padding to create space for floating cards */
+    padding: 60px 40px;
 }
 
 .main-hero-img {
@@ -2069,34 +2060,4 @@ header.scrolled {
 }
 
 
-/* Reduce parallax motion for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .hero-content,
-    .services {
-        will-change: auto !important;
-        transform: none !important;
-        opacity: 1 !important;
-    }
-}
 
-/* Mobile-specific parallax optimizations */
-@media (max-width: 768px) {
-    /* Enhanced mobile parallax */
-    .hero-content {
-        /* Optimize for smooth mobile parallax */
-        transform: translate3d(0, 0, 0);
-        will-change: transform, opacity;
-        transition: none;
-    }
-    
-    /* Ensure parallax elements are visible on mobile */
-    .hero {
-        /* Slightly taller on mobile to accommodate parallax */
-        min-height: 110vh;
-    }
-    
-    .hero-container {
-        /* More padding to prevent content cutoff during parallax */
-        padding: 100px 20px 50px;
-    }
-}
