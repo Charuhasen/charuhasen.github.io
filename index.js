@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFormHandling();
     initButtonHandlers();
     initMobileMenu();
+    initTestimonialsAutoScroll();
     
     // Mark page as loaded to prevent FOUC
     requestAnimationFrame(() => {
@@ -705,3 +706,103 @@ function toggleSector(sectorId) {
         }, 300);
     }
 }
+
+// Testimonials Auto-Scroll Function
+function initTestimonialsAutoScroll() {
+    const testimonialsGrid = document.getElementById('testimonialsGrid');
+    
+    if (!testimonialsGrid) return;
+    
+    let autoScrollInterval;
+    let isUserInteracting = false;
+    let scrollDirection = 1; // 1 for forward, -1 for backward
+    
+    // Check if we're on mobile (where horizontal scroll is active)
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+    
+    // Auto scroll function
+    function autoScroll() {
+        if (!isMobile() || isUserInteracting) return;
+        
+        const scrollLeft = testimonialsGrid.scrollLeft;
+        const maxScroll = testimonialsGrid.scrollWidth - testimonialsGrid.clientWidth;
+        const cardWidth = testimonialsGrid.querySelector('.testimonial-card').offsetWidth;
+        const gap = 24; // 1.5rem gap in pixels
+        const scrollAmount = (cardWidth + gap) * 0.5; // Scroll half a card width for smoother movement
+        
+        // Check if we've reached the end or beginning
+        if (scrollLeft >= maxScroll - 10) {
+            scrollDirection = -1; // Start scrolling backward
+        } else if (scrollLeft <= 10) {
+            scrollDirection = 1; // Start scrolling forward
+        }
+        
+        // Perform the scroll
+        testimonialsGrid.scrollBy({
+            left: scrollAmount * scrollDirection,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Start auto-scroll
+    function startAutoScroll() {
+        if (!isMobile()) return;
+        
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(autoScroll, 2000); // Auto-scroll every 2 seconds
+    }
+    
+    // Stop auto-scroll
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+    
+    // Pause auto-scroll when user interacts
+    function pauseAutoScroll() {
+        isUserInteracting = true;
+        stopAutoScroll();
+        
+        // Resume after 5 seconds of no interaction
+        setTimeout(() => {
+            isUserInteracting = false;
+            startAutoScroll();
+        }, 5000);
+    }
+    
+    // Event listeners for user interaction
+    testimonialsGrid.addEventListener('touchstart', pauseAutoScroll);
+    testimonialsGrid.addEventListener('scroll', pauseAutoScroll);
+    
+    // Handle mouse events for desktop/tablet
+    testimonialsGrid.addEventListener('mouseenter', stopAutoScroll);
+    testimonialsGrid.addEventListener('mouseleave', () => {
+        if (isMobile()) {
+            setTimeout(startAutoScroll, 1000);
+        }
+    });
+    
+    // Handle visibility change (page hidden/visible)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoScroll();
+        } else if (isMobile()) {
+            setTimeout(startAutoScroll, 2000);
+        }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', utils.debounce(() => {
+        stopAutoScroll();
+        if (isMobile()) {
+            setTimeout(startAutoScroll, 1000);
+        }
+    }, 250));
+    
+    // Initialize auto-scroll if on mobile
+    if (isMobile()) {
+        setTimeout(startAutoScroll, 2000); // Start after 2 seconds
+    }
+}
+
